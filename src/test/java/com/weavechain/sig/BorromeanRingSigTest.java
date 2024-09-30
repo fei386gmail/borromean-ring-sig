@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.security.Security;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BorromeanRingSigTest {
@@ -35,16 +36,30 @@ public class BorromeanRingSigTest {
         ECPoint pub3 = cv.getG().multiply(new BigInteger(1, pvk3));
         ECPoint pub4 = cv.getG().multiply(new BigInteger(1, pvk4));
 
-        List<ECPoint> ring1 = List.of(pub1, pub2, pub3, pub4);
-        List<List<ECPoint>> rings = List.of(ring1);
 
-        List<byte[]> knownPrivateKeys1 = List.of(pvk2);
-        List<Integer> ringIndexes1 = List.of(1);
+        List<ECPoint> ring1 = new ArrayList<>();
+        ring1.add(pub1);  ring1.add(pub2);  ring1.add(pub3);  ring1.add(pub4);
+//                List.of(pub1, pub2, pub3, pub4);
+
+        List<List<ECPoint>> rings = new ArrayList<>();
+        rings.add(ring1);
+//                List.of(ring1);
+
+        List<byte[]> knownPrivateKeys1 = new ArrayList<>();
+        knownPrivateKeys1.add(pvk2);
+//                List.of(pvk2);
+        List<Integer> ringIndexes1 = new ArrayList<>();
+        ringIndexes1.add(1);
+//                List.of(1);
         BorromeanRingSigParams params1 = new BorromeanRingSigParams(rings, knownPrivateKeys1, ringIndexes1);
         BorromeanRingSig sig1 = new BorromeanRingSig(params1);
 
-        List<byte[]> knownPrivateKeys2 = List.of(pvk4);
-        List<Integer> ringIndexes2 = List.of(3);
+        List<byte[]> knownPrivateKeys2 = new ArrayList<>();
+        knownPrivateKeys2.add(pvk4);
+//                List.of(pvk4);
+        List<Integer> ringIndexes2 = new ArrayList<>();
+        ringIndexes2.add(3);
+//                List.of(3);
         BorromeanRingSigParams params2 = new BorromeanRingSigParams(rings, knownPrivateKeys2, ringIndexes2);
         BorromeanRingSig sig2 = new BorromeanRingSig(params1);
 
@@ -91,12 +106,22 @@ public class BorromeanRingSigTest {
         ECPoint pub6 = cv.getG().multiply(new BigInteger(1, pvk6));
         ECPoint pub7 = cv.getG().multiply(new BigInteger(1, pvk7));
 
-        List<ECPoint> ring1 = List.of(pub1, pub2, pub3, pub4);
-        List<ECPoint> ring2 = List.of(pub5, pub6, pub7);
-        List<List<ECPoint>> rings = List.of(ring1, ring2);
+        List<ECPoint> ring1 = new ArrayList<>();
+        ring1.add(pub1);  ring1.add(pub2);  ring1.add(pub3);  ring1.add(pub4);
+//        List.of(pub1, pub2, pub3, pub4);
+        List<ECPoint> ring2 = new ArrayList<>();
+        ring2.add(pub5);   ring2.add(pub6);   ring2.add(pub7);
+//        List.of(pub5, pub6, pub7);
+        List<List<ECPoint>> rings = new ArrayList<>();
+        rings.add(ring1);  rings.add(ring2);
+//                List.of(ring1, ring2);
 
-        List<byte[]> knownPrivateKeys = List.of(pvk1, pvk6);
-        List<Integer> ringIndexes = List.of(0, 1);
+        List<byte[]> knownPrivateKeys = new ArrayList<>();
+        knownPrivateKeys.add(pvk1);   knownPrivateKeys.add(pvk6);
+//                List.of(pvk1, pvk6);
+        List<Integer> ringIndexes = new ArrayList<>();
+        ringIndexes.add(0);   ringIndexes.add(1);
+//                List.of(0, 1);
         BorromeanRingSigParams params = new BorromeanRingSigParams(rings, knownPrivateKeys, ringIndexes);
         BorromeanRingSig sig = new BorromeanRingSig(params);
 

@@ -252,12 +252,25 @@ public class BorromeanRingSig {
         ECPoint pub6 = cv.getG().multiply(new BigInteger(1, pvk6));
         ECPoint pub7 = cv.getG().multiply(new BigInteger(1, pvk7));
 
-        List<ECPoint> ring1 = List.of(pub1, pub2, pub3, pub4);
-        List<ECPoint> ring2 = List.of(pub5, pub6, pub7);
-        List<List<ECPoint>> rings = List.of(ring1, ring2);
+        List<ECPoint> ring1 = new ArrayList<>();
+        ring1.add(pub1);   ring1.add(pub2);  ring1.add(pub3);  ring1.add(pub4);
+//        List.of(pub1, pub2, pub3, pub4);
+        List<ECPoint> ring2 = new ArrayList<>();
+        ring2.add(pub5);  ring2.add(pub6);  ring2.add(pub7);
+//        List.of(pub5, pub6, pub7);
 
-        List<byte[]> knownPrivateKeys = List.of(pvk1, pvk6);
-        List<Integer> ringIndexes = List.of(0, 1);
+
+        List<List<ECPoint>> rings = new ArrayList<>();
+        rings.add(ring1); rings.add(ring2);
+//                List.of(ring1, ring2);
+
+        List<byte[]> knownPrivateKeys = new ArrayList<>();
+        knownPrivateKeys.add(pvk1);   knownPrivateKeys.add(pvk6);
+//        List.of(pvk1, pvk6);
+        List<Integer> ringIndexes =new ArrayList<>();
+        ringIndexes.add(0);  ringIndexes.add(1);
+//                List.of(0, 1);
+
         BorromeanRingSigParams params = new BorromeanRingSigParams(rings, knownPrivateKeys, ringIndexes);
         BorromeanRingSig sig = new BorromeanRingSig(params);
 
